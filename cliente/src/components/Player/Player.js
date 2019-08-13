@@ -37,6 +37,7 @@ class PlayerControls extends React.Component {
             <div className='playercontrols'>
                 <div className='player-controls'>
                     <p>Player Here</p>
+                    <p>Hola Mundo aqui de nuevo</p>
                 </div>
             </div>
         );
