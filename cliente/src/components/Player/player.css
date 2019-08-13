@@ -1,0 +1,40 @@
+.discograf-content {
+    margin: 0px auto;
+    display: inline-block;
+    padding: 15px;
+    font-size: 14px;
+}
+
+.discograf-content > ul {
+    display: block; 
+    margin: 0px auto;
+    text-align: left;
+    float: right;
+    padding-left: 10px;
+}
+.link-2 {
+    display: block;
+    margin: 0px auto;
+    text-align: left;
+    padding-top: 10px;
+
+}
+.link-2 > p{
+    display: block;
+    margin: 0px auto;
+    font-weight: bolder;
+}
+.link-2 > a {
+    text-decoration: none;
+    color: #707070;
+    font-size: 12px;
+}
+.artist-link:hover {
+    color: #000000;
+    text-decoration-line: underline;
+}
+.player-controls {
+    margin: 0px auto;
+    display: block;
+    text-align: center;
+}

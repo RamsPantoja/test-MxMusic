@@ -1,0 +1,51 @@
+.link {
+    margin: 0px auto;
+    display: block;
+    height: 35px;
+    padding-top: 20px;
+    text-align: left
+}
+.link > a {
+    text-decoration: none;
+    color: #000000;
+    display: inline-block;
+}
+.link > a:hover {
+    color:#29b6f6;
+}
+  
+.links {
+    margin: 0px auto;
+    display: block;
+    text-align: left;
+}
+  
+.link-1 {
+    margin: 0px auto;
+    display: block;
+    height: 25px;
+    padding-top: 8px;
+}
+.link-1 > a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bolder;
+  
+}
+.link-1 > a:hover {
+    color:#29b6f6;
+}
+.library > ul {
+    padding-top: 15px;
+    display: block;
+    text-align: left;
+    font-size: 14px;
+}
+.span {
+    display: block;
+    margin: 0px auto;
+    text-align: center;
+    float: right;
+    padding-left: 15px;
+    padding-top: 11px;
+}
