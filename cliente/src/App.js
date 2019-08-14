@@ -37,7 +37,7 @@ function App() {
           <Drawer/>
           <PlayerContainer/>
           <div className='content'>
-            <section>
+            <section className='content-section'>
               <Switch>
                 <Route exact path='/songs' component={ Canciones }/>
                 <Route exact path='/artist' component={ Artistas }/>
