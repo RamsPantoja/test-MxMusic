@@ -1,0 +1,24 @@
+.search-icon-input {
+    margin: 0px auto;
+    display: block;
+    padding: 25px;
+}
+.search-icon-input-form {
+    background: #ffffff;
+    margin: 0px auto;
+    display: inline-block;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-right: 10px;
+}
+.search-icon-input-form > input {
+    margin-top: 3px;
+    display: block;
+    float: right;
+    padding-left: 10px;
+    border: none;
+    background: none;
+    font-weight: bolder;
+    font-size: 0.9em
+}
