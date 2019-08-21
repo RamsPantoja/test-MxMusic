@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 
 export const songs_query = gql ` query {
     getSongs {
+        id
         titulo
         album
         artista

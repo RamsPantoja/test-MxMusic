@@ -1,4 +1,6 @@
 import React, {Fragment} from 'react';
+import { Query } from 'react-apollo';
+import { songs_query } from '../../querys/querys';
 import './canciones.css'
 
 class Canciones extends React.Component {
@@ -7,15 +9,26 @@ class Canciones extends React.Component {
             <Fragment>
                 <h1 className='title-content'>Canciones</h1>
                 <div className='songs-container'>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non lectus sed arcu fermentum sodales non et eros. Vestibulum at sagittis sem. Duis ipsum est, aliquet eu vulputate sed, tincidunt in est. Morbi et metus nisi. In finibus venenatis dui, eget aliquam mi posuere a. Vivamus sodales et ante a pretium. Mauris vitae ex semper, malesuada ipsum vitae, tincidunt massa. Donec lacinia nisi justo. Nam efficitur tincidunt felis nec ultricies. Maecenas nec placerat nisi. Suspendisse eget condimentum mauris, ut molestie sapien. Donec sed felis a est varius tristique.
+                    <Query query={songs_query} pollInterval={1000}>
+                        {({loading, error, data, startPolling, stopPolling}) => {
+                            if (loading) return 'loading...';
+                            if (error) return `Error: ${error.message}`;
+                            return (
+                                <Fragment>
+                                    {data.getSongs.map( item => (
+                                        <div key={item.id} className='display-song-container'>
+                                            <div className='title-song' dir='auto'>{item.titulo}</div>
+                                            <span className='row-artist'><a href="google.com">{item.artista}</a></span>
+                                            <span className='row-artist'><a href="google.com">{item.album}</a></span>
+                                        </div>
+                                    ))}
+                                
+                                </Fragment>
+                                   
+                            );
 
-Integer dui massa, consectetur eu volutpat vel, pulvinar gravida elit. Vestibulum condimentum sem eu nunc tincidunt, vel porta libero ultricies. Mauris nec est et magna lacinia ultrices. Cras rhoncus a felis in maximus. Nulla rhoncus vel ante eget placerat. Donec consectetur ante vitae consequat egestas. Cras faucibus viverra dignissim. Aliquam at tincidunt lacus. Integer feugiat diam in hendrerit eleifend. Integer justo nibh, fringilla efficitur odio at, tristique hendrerit ex. Quisque quis dictum diam, non interdum diam. Nulla quis purus eget dui accumsan molestie sit amet at erat.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non lectus sed arcu fermentum sodales non et eros. Vestibulum at sagittis sem. Duis ipsum est, aliquet eu vulputate sed, tincidunt in est. Morbi et metus nisi. In finibus venenatis dui, eget aliquam mi posuere a. Vivamus sodales et ante a pretium. Mauris vitae ex semper, malesuada ipsum vitae, tincidunt massa. Donec lacinia nisi justo. Nam efficitur tincidunt felis nec ultricies. Maecenas nec placerat nisi. Suspendisse eget condimentum mauris, ut molestie sapien. Donec sed felis a est varius tristique.
-
-Integer dui massa, consectetur eu volutpat vel, pulvinar gravida elit. Vestibulum condimentum sem eu nunc tincidunt, vel porta libero ultricies. Mauris nec est et magna lacinia ultrices. Cras rhoncus a felis in maximus. Nulla rhoncus vel ante eget placerat. Donec consectetur ante vitae consequat egestas. Cras faucibus viverra dignissim. Aliquam at tincidunt lacus. Integer feugiat diam in hendrerit eleifend. Integer justo nibh, fringilla efficitur odio at, tristique hendrerit ex. Quisque quis dictum diam, non interdum diam. Nulla quis purus eget dui accumsan molestie sit amet at erat.
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non lectus sed arcu fermentum sodales non et eros. Vestibulum at sagittis sem. Duis ipsum est, aliquet eu vulputate sed, tincidunt in est. Morbi et metus nisi. In finibus venenatis dui, eget aliquam mi posuere a. Vivamus sodales et ante a pretium. Mauris vitae ex semper, malesuada ipsum vitae, tincidunt massa. Donec lacinia nisi justo. Nam efficitur tincidunt felis nec ultricies. Maecenas nec placerat nisi. Suspendisse eget condimentum mauris, ut molestie sapien. Donec sed felis a est varius tristique.
-</p>
-
+                        }}
+                    </Query>
                 </div>
             </Fragment>
         );

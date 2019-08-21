@@ -1,2 +1,30 @@
 .songs-container {
+    margin: 50px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: 1px
+}
+.display-song-container {
+    padding: 15px;
+}
+.display-song-container:hover {
+    background: #fafafa;
+    box-shadow: 3px 2.5px 11px -1px;
+}
+.title-song {
+    font-weight: bolder;
+    font-size: 1.2em;
+    display: block;
+    pointer-events: none;
+}
+.row-artist> a {
+    display: inline-block;
+    text-decoration: none;
+    color:#707070;
+    margin: 5px;
+}
+.row-artist:hover > a {
+    color:#000000;
+    text-decoration-line: underline;
 }

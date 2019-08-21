@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, {Fragment} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
@@ -22,7 +22,7 @@ import './App.css';
 //configuracion del apollo client
 
 const client = new ApolloClient({
-  uri:'http://192.168.137.46:3200/graphql',
+  uri:'http://localhost:3200/graphql',
   onError: ({networkError, graphQLErrors}) => {
     console.log('graphQLErrors', graphQLErrors);
     console.log('networkError', networkError);

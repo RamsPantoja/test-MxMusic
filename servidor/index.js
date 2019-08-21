@@ -11,4 +11,4 @@ const server = new ApolloServer({typeDefs, resolvers});
 server.applyMiddleware({app});
 
 
-app.listen({port:3200}, () => console.log(`Server is running http://192.168.137.46:3200${server.graphqlPath}`));
+app.listen({port:3200}, () => console.log(`Server is running http://localhost:3200${server.graphqlPath}`));
