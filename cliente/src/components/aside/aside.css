@@ -1,0 +1,48 @@
+.aside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-info {
+    text-align: center;
+    font-size: larger;
+    display: block;
+    margin: 0px auto;
+}
+.user-info > img {
+    width: 180px;
+    height: 180px;
+    border-radius: 100%;
+    transform: scale(1);
+    transition: .3s ease;
+}
+.user-info > img:hover {
+    transform: scale(1.1);
+    margin-bottom: 15px;
+}
+.user-info > span {
+    display: block;
+    margin: 15px;
+}
+
+.connect-button {
+    text-decoration: none;
+    font-weight: bolder;
+    color: #29b6f6;
+}
+
+.box-connect-button {
+    margin: 0px auto;
+    border-radius: 20px;
+    padding: 5px;
+    background-color: #fafafa;
+    transform: scale(1);
+    transition: .2s ease;
+}
+
+.box-connect-button:hover {
+    transform: scale(1.1);
+    box-shadow: 3px 2.5px 11px -1px;
+}
+
