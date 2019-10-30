@@ -22,7 +22,7 @@ import './App.css';
 //configuracion del apollo client
 
 const client = new ApolloClient({
-  uri:'http://localhost:3200/graphql',
+  uri:'http://localhost:8200/graphql',
   onError: ({networkError, graphQLErrors}) => {
     console.log('graphQLErrors', graphQLErrors);
     console.log('networkError', networkError);
@@ -37,16 +37,14 @@ function App() {
           <Drawer/>
           <PlayerContainer/>
           <div className='content'>
-            <section className='content-section'>
-              <Switch>
-                <Route exact path='/songs' component={ Canciones }/>
-                <Route exact path='/artist' component={ Artistas }/>
-                <Route exact path='/albums' component={ Albums }/>
-                <Route exact path='/radio' component={ Radio }/>
-                <Route exact path='/' component={ Inicio }/>
-                <Route exact path='/explorar' component={ Explorar }/>
-              </Switch>
-            </section>
+            <Switch>
+              <Route exact path='/songs' component={ Canciones }/>
+              <Route exact path='/artist' component={ Artistas }/>
+              <Route exact path='/albums' component={ Albums }/>
+              <Route exact path='/radio' component={ Radio }/>
+              <Route exact path='/' component={ Inicio }/>
+              <Route exact path='/explorar' component={ Explorar }/>
+            </Switch>
           </div>
           <Search/>
           <Aside/>

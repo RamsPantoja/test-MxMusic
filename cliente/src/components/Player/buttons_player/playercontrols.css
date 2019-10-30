@@ -1,0 +1,34 @@
+.player-controls {
+    margin: 0px auto;
+    display: block;
+    text-align: center;
+}
+
+.player-controls__buttons {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.player-controls__buttons > .player-buttons {
+    display: inline-block;
+    margin: 0px 20px;
+    cursor: pointer;
+}
+
+.player-controls__progress_bar_time > .timer {
+    display: inline-block;
+    margin: 10px 15px;
+    pointer-events: none;
+}
+.hover-playbutton {
+    position: relative;
+    top: 5px;
+    display: inline-block;
+    transform: scale(1);
+    cursor: pointer;
+}
+.hover-playbutton:hover {
+    transform: scale(1.1);
+}
+
+

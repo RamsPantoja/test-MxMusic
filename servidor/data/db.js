@@ -2,20 +2,11 @@ import mongoose from 'mongoose';
 
 mongoose.Promise = global.Promise;
 
-//Para conectar a la base de datos mongodb
-mongoose.connect('mongodb://localhost/spotifydb', {useNewUrlParser: true});
+const MongoURI = 'mongodb://localhost:27017/spotifydb';
+mongoose.connect(MongoURI);
+
 
 // Estructuracion del esquema de la base de datos
-const songsSchema = new mongoose.Schema({
-    titulo: String,
-    artista: String,
-    album: String,
-    duracion: String,
-    img: String,
-    urlsong: String
-});
-export const Songs = mongoose.model('Songs', songsSchema);
-
 const artistsSchema = new mongoose.Schema({
     artname: String,
     biografia: String,
@@ -43,3 +34,13 @@ const albumsSchema = new mongoose.Schema({
     songs: Array
 });
 export const Albums = mongoose.model('Albums', albumsSchema);
+
+
+const songSchema = new mongoose.Schema({
+    filename: String,
+    contentType: String,
+    originalname: String,
+    duracion: Number,
+    source: String
+});
+export const Song = mongoose.model('fs.files', songSchema);

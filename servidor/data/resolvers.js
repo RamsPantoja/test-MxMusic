@@ -1,5 +1,5 @@
 import  mongoose from "mongoose";
-import { Songs, Users, Artists, Albums } from './db';
+import { Users, Artists, Albums, Song, File} from './db';
 import { rejects } from "assert";
 
 mongoose.set('useFindAndModify', false);
@@ -18,16 +18,18 @@ export const resolvers = {
             })
         },
         getSongs: (root, {limit}) => {
-           return Songs.find({}).limit(limit)
+           return Song.find({}).limit(limit)
         },
-        getSong: (root, {id}) => {
+        getSong: (root, {id}, ) => {
             return new Promise((resolve, object) => {
-                Songs.findById(id, (error, song) => {
-                    if(error) rejects(error)
-                    else resolve(song)
+                Song.findById(id, (error, song) => {
+                    if(error) rejects(error);
+                    else {
+                        resolve(song);
+                    }
                 })
             });
-        },
+        },  
         getAlbums: (root, {limit}) => {
            return Albums.find({}).limit(limit)
         },
@@ -52,29 +54,20 @@ export const resolvers = {
         }
     },
     Mutation: {
-        createSong: (root, {input}) => {
-            const newSong = new Songs({
-                titulo : input.titulo,
-                artista : input.artista,
-                album : input.album,
-                duracion : input.duracion,
-                url: input.url,
-                img: input.img
-            });
-            newSong.id = newSong._id;
-            return new Promise((resolve, object) => {
-                newSong.save((error) => {
-                    if (error) rejects(error)
-                    else resolve(newSong)
-                });
-            });
-        },
         updateUser: (root, {input}) => {
             return new Promise((resolve, object) => {
-                Users.findOneAndUpdate({_id:id}, input, {new: true}, (error, user) => {
+                Users.findOneAndUpdate({_id: input.id}, input, {new: true}, (error, user) => {
                     if(error) rejects(error);
                     else resolve(user);
                 });
+            });
+        },
+        updateSong: (root, {input}) => {
+            return new Promise((resolve, object) => {
+                Song.findOneAndUpdate({_id: input.id}, input, {new:true}, (error, song ) => {
+                    if(error) rejects(error);
+                    else resolve(song);
+                 });
             });
         },
         deleteUser: (root, {id}) => {

@@ -1,7 +1,9 @@
 import React, {Fragment} from 'react';
 import { Query } from 'react-apollo';
 import { songs_query } from '../../querys/querys';
+import { song_query } from '../../querys/querys';
 import './player.css';
+import ComponentAudio from './audiocomponent';
 
 class Discografia extends React.Component {
     render () {
@@ -11,13 +13,12 @@ class Discografia extends React.Component {
                     {({loading, error, data}) => {
                         if(loading) return '';
                         if(error) return `Error: ${error.message}`;
-                        console.log(data.getSongs);
                         return (
                             <div className='discograf-content'>
-                                <img src={data.getSongs[0].img} alt="cover" height="60" width="60"/>
+                                <img src={data.getSongs[2].img} alt="cover" height="60" width="60"/>
                                 <ul>
-                                    <li className='link-2'><p>{data.getSongs[0].titulo}</p></li>
-                                    <li className='link-2'><a href='google.com' className='artist-link'>{data.getSongs[0].artista}</a></li>
+                                    <li className='link-2'><p>{data.getSongs[2].titulo}</p></li>
+                                    <li className='link-2'><a href='google.com' className='artist-link'>{data.getSongs[2].artista}</a></li>
                                 </ul>
                             </div>
                         );
@@ -30,18 +31,6 @@ class Discografia extends React.Component {
     }
 }
 
-class PlayerControls extends React.Component {
-    render() {
-        
-        return(
-            <div className='playercontrols'>
-                <div className='player-controls'>
-                    <p>Player Here</p>
-                </div>
-            </div>
-        );
-    }
-}
 
 class VolumeControl extends React.Component {
     render() {
@@ -55,17 +44,27 @@ class VolumeControl extends React.Component {
     }
 }
 
-
 class PlayerContainer extends React.Component {
     render() {
         return(
-            <Fragment>
-                <div className='player'>
-                    <Discografia/>
-                    <PlayerControls/>
-                    <VolumeControl/>
-                </div>
-            </Fragment>
+            <div className='player'>
+                <Query query={song_query}>
+                    {({loading, error, data}) => {
+                        if (loading) return '';
+                        if (error) return `Error: ${error.message}`;
+                        console.log(data.getSong);
+                        return (
+                            <Fragment>
+                                <Discografia/>
+                                <ComponentAudio 
+                                    duracion={data.getSong.duracion}
+                                    source={data.getSong.source}/>
+                                <VolumeControl/>
+                            </Fragment>
+                        )
+                    }}
+                </Query>
+            </div>
         );
     }
 }

@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    grid-gap: 1px
+    grid-gap: 1px;
 }
 .display-song-container {
     padding: 15px;
@@ -27,4 +27,8 @@
 .row-artist:hover > a {
     color:#000000;
     text-decoration-line: underline;
+}
+.overflow-content {
+    display: block;
+    overflow: auto;
 }
