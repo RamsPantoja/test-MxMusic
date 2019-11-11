@@ -5,26 +5,22 @@ import './progressive_bar.css';
 class ProgressiveBar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-           value:'0'
-        }
-
-        this.handleChangeRange = this.handleChangeRange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChangeRange(e) {
-        this.setState({
-            value: e.target.value
-        })
+    handleChange(e) {
+        this.props.onChangeMusic(e.target.value);
     }
 
     render() {
-        let widthValue = this.props.percent;
+        const widthValue = this.props.percent
+        const duration = this.props.duration;
+        const currentTime = this.props.currentTime;
         return(
             <Fragment> 
                 <div className='progress_bar_time-zero'>
                     <div className='progress_bar_thumb'>
-                        <input type="range" min='0' max='100' value={this.state.value} className='progress_bar_time-complete' onChange={this.handleChangeRange}/>
+                        <input type="range" min='0' max={duration} value={currentTime} className='progress_bar_time-complete' onChange={this.handleChange}/>
                         <div className='progress_bar_width' style={{width: widthValue + '%' }}></div>
                     </div>
                  </div>

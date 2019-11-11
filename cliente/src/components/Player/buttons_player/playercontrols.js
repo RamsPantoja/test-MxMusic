@@ -15,7 +15,7 @@ class PlayerControls extends React.Component {
                     </div>
                     <div className='player-controls__progress_bar_time'>
                         <div className='timer'>0:00</div>
-                        <ProgressiveBar percent={this.props.percent}/>
+                        <ProgressiveBar percent={this.props.percent} onChangeMusic={this.props.onChangeMusic} duration={this.props.duration} currentTime={this.props.currentTime}/>
                         <div className='timer'>4:34</div>
                     </div>
                 </div>
