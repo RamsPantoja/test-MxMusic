@@ -17,7 +17,6 @@ export const song_query = gql ` query {
         filename
         originalname
         contentType
-        duracion
         source
     }
 }`

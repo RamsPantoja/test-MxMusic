@@ -5,55 +5,61 @@ class ComponentAudio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            playStatus: 'play',
-            currentTime: 0,
-            percent: 0
+            playStatus: 'false',
+            audioControls: {
+                songPercent: 0,
+                songTime: '0:00',
+                songDuration: '0:00'
+            }
         }
-
-        this.toggleplay = this.toggleplay.bind(this);
-        this.updateTime = this.updateTime.bind(this);
-        this.modifyProgressBar = this.modifyProgressBar.bind(this);
-        this.updateBar = this.updateBar.bind(this);
+        this.reactAudioPlayer = React.createRef();
+        this.togglePlay = this.togglePlay.bind(this);
+        this.onTimeUpdateListener = this.onTimeUpdateListener.bind(this);
+        this.updateAudioTime = this.updateAudioTime.bind(this);
     }
 
-    updateTime (timeStamp) {
-        let currentTime = Math.floor(timeStamp)
-        this.setState({
-            currentTime: currentTime
-        })
+    minTwoDigits (num) {
+        return ( num < 10 ? '0' : '') + num;
+    }
+    onTimeUpdateListener () {
+        let currentDuration = this.reactAudioPlayer.current.duration;
+        let currentTime = this.reactAudioPlayer.current.currentTime;
+        let percent = (currentTime / currentDuration);
+        let audioControls = Object.assign({}, this.state.audioControls);
+        audioControls.songPercent = percent;
+        audioControls.songTime = Math.floor(currentTime.toFixed(0) / 60) + ':' + (currentTime.toFixed(0) % 60 ? this.minTwoDigits((currentTime.toFixed(0) % 60)) : '00')
+        audioControls.songDuration = Math.floor(currentDuration.toFixed(0) / 60) + ':' + (currentDuration.toFixed(0) % 60 ? this.minTwoDigits(currentDuration.toFixed(0) % 60) : '00');
+        this.setState({ 
+            audioControls
+        });
+        
     }
 
-    modifyProgressBar(e){
-        let audio = document.getElementById('audio');
-        audio.currentTime = e;
-    }
-
-    updateBar(percent){
-        this.setState({
-            percent: percent
-        })
+    updateAudioTime (e) {
+        e.persist();
+        if(this.state.playStatus !== undefined ) {
+            let songPercentage = e.nativeEvent.layerX / e.target.clientWidth;
+            let currentTime = songPercentage * this.reactAudioPlayer.current.duration;
+            this.reactAudioPlayer.current.currentTime = currentTime;
+            let audioControls = Object.assign({}, this.state.audioControls);
+            audioControls.songPercent = songPercentage;
+            this.setState({ 
+                audioControls
+             });
+        }
     }
     
-    toggleplay (i) {
+    togglePlay () {
         let status = this.state.playStatus;
-        let audio = document.getElementById('audio');
-        if ( status === 'play') {
-            status = 'pause';
-            audio.play();
+        if ( status === 'false') {
+            setTimeout(() => {
+                this.reactAudioPlayer.current.play();
+            }, 0)
+            status = 'true'
         } else {
-            status = 'play';
-            audio.pause();
+            this.reactAudioPlayer.current.pause();
+            status = 'false';
         }
-
-
-        setInterval( () => {
-            let currentTime = audio.currentTime;
-            let duration = this.props.duracion;
-            let percent = (currentTime / duration) * 100;
-            console.log(currentTime);
-            this.updateTime(currentTime);
-            this.updateBar(percent);
-        }, 1000);
 
         this.setState({
             playStatus: status
@@ -63,8 +69,16 @@ class ComponentAudio extends React.Component {
     render () {
         return (
             <Fragment>
-                <audio id='audio'><source src={this.props.source}/></audio>
-                <PlayerControls percent={this.state.percent} onClick={this.toggleplay} currentTime={this.state.currentTime} onChangeMusic={this.modifyProgressBar} duration={this.props.duracion}/>
+                <audio id='audio' 
+                ref={this.reactAudioPlayer} 
+                src={this.props.source} 
+                onTimeUpdate={this.onTimeUpdateListener}></audio>
+                <PlayerControls 
+                percent={this.state.audioControls.songPercent} 
+                onClick={this.togglePlay} 
+                songTime={this.state.audioControls.songTime} 
+                songDuration={this.state.audioControls.songDuration}
+                updateAudioTime={this.updateAudioTime}/>
             </Fragment>
         )
     }

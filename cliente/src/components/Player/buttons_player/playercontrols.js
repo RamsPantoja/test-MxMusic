@@ -5,6 +5,8 @@ import ProgressiveBar from '../progress_bar/progressive_bar';
 
 class PlayerControls extends React.Component {
     render() {
+        const songTime = this.props.songTime;
+        const songDuration = this.props.songDuration;
         return(
             <div className='playercontrols'>
                 <div className='player-controls'>
@@ -14,9 +16,11 @@ class PlayerControls extends React.Component {
                         <div className='player-buttons'><i className="material-icons md-24">skip_next</i></div>
                     </div>
                     <div className='player-controls__progress_bar_time'>
-                        <div className='timer'>0:00</div>
-                        <ProgressiveBar percent={this.props.percent} onChangeMusic={this.props.onChangeMusic} duration={this.props.duration} currentTime={this.props.currentTime}/>
-                        <div className='timer'>4:34</div>
+                        <div className='timer'>{songTime}</div>
+                        <ProgressiveBar 
+                        percent={this.props.percent}
+                        updateAudioTime={this.props.updateAudioTime}/>
+                        <div className='timer'>{songDuration}</div>
                     </div>
                 </div>
             </div>
