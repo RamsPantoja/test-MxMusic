@@ -37,6 +37,7 @@ type Song {
     songname: String
     source: String
     artname: String
+    album: String
 }
 
 type Query {
@@ -65,6 +66,7 @@ input InputSong {
     songname: String
     source: String
     artname: String
+    album: String
 }
 
 

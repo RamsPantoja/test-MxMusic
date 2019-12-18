@@ -5,7 +5,7 @@ class ComponentAudio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            playStatus: 'false',
+            playStatus: false,
             audioControls: {
                 songPercent: 0,
                 songTime: '0:00',
@@ -16,6 +16,7 @@ class ComponentAudio extends React.Component {
         this.togglePlay = this.togglePlay.bind(this);
         this.onTimeUpdateListener = this.onTimeUpdateListener.bind(this);
         this.updateAudioTime = this.updateAudioTime.bind(this);
+        this.endPlayed = this.endPlayed.bind(this);
     }
 
     minTwoDigits (num) {
@@ -51,14 +52,26 @@ class ComponentAudio extends React.Component {
     
     togglePlay () {
         let status = this.state.playStatus;
-        if ( status === 'false') {
+        if ( status === false) {
             setTimeout(() => {
                 this.reactAudioPlayer.current.play();
             }, 0)
-            status = 'true'
+            status = true
         } else {
             this.reactAudioPlayer.current.pause();
-            status = 'false';
+            status = false;
+        }
+
+        this.setState({
+            playStatus: status
+        })
+    }
+
+    endPlayed () {
+        let status = this.state.playStatus;
+        let ended = this.reactAudioPlayer.current.ended;
+        if (ended === true) {
+            status = false;
         }
 
         this.setState({
@@ -72,8 +85,10 @@ class ComponentAudio extends React.Component {
                 <audio id='audio' 
                 ref={this.reactAudioPlayer} 
                 src={this.props.source} 
-                onTimeUpdate={this.onTimeUpdateListener}></audio>
+                onTimeUpdate={this.onTimeUpdateListener}
+                onEnded={this.endPlayed}></audio>
                 <PlayerControls 
+                playStatus={this.state.playStatus}
                 percent={this.state.audioControls.songPercent} 
                 onClick={this.togglePlay} 
                 songTime={this.state.audioControls.songTime} 

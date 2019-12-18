@@ -39,6 +39,7 @@ export const Albums = mongoose.model('Albums', albumsSchema);
 const songSchema = new mongoose.Schema({
     songname: String,
     source: String,
-    artname: String
+    artname: String,
+    album: String
 });
 export const Song = mongoose.model('songs', songSchema);

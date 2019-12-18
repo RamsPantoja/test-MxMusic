@@ -58,7 +58,8 @@ export const resolvers = {
             const newSong = new Song({
                 artname: input.artname,
                 source: input.source,
-                songname: input.songname
+                songname: input.songname,
+                album: input.album
             });
             newSong.id = newSong._id
 

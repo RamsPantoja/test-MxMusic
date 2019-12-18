@@ -20,7 +20,7 @@ class Canciones extends React.Component {
                                             <div key={item.id} className='display-song-container'>
                                                 <div className='title-song' dir='auto'>{item.songname}</div>
                                                 <span className='row-artist'><a href="google.com">{item.artname}</a></span>
-                                                <span className='row-artist'><a href="google.com">{item.artname}</a></span>
+                                                <span className='row-artist'><a href="google.com">{item.album}</a></span>
                                             </div>
                                         ))}
                                     

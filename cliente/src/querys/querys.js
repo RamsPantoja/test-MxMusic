@@ -7,6 +7,7 @@ export const songs_query = gql ` query {
         id
         songname
         artname
+        album
     }
 }`
 
@@ -16,5 +17,6 @@ export const song_query = gql ` query {
         songname
         source
         artname
+        album
     }
 }`

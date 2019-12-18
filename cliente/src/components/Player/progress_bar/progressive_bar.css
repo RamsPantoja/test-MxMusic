@@ -31,8 +31,6 @@
 }
 
 .progress_bar_time-complete::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
     width: 12px;
     height: 12px;
     margin: 0px;
