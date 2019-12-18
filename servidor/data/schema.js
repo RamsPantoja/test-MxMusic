@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+
 const typeDefs = gql `
     type User {
     id: ID
@@ -33,11 +34,9 @@ type Album {
 
 type Song {
     id: ID
-    filename: String
-    contentType: String
-    originalname: String
-    duracion: Int
+    songname: String
     source: String
+    artname: String
 }
 
 type Query {
@@ -63,15 +62,14 @@ input InputUser {
 }
 input InputSong {
     id: ID
-    filename: String
-    contentType: String
-    originalname: String
-    duracion: Int
+    songname: String
     source: String
+    artname: String
 }
 
 
 type Mutation {
+    addSong(input: InputSong): Song
     createUser(input: InputUser) : User
     deleteUser(id: ID!) : String
     updateUser(input: InputUser) : User

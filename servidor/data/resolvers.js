@@ -1,5 +1,5 @@
 import  mongoose from "mongoose";
-import { Users, Artists, Albums, Song, File} from './db';
+import { Users, Artists, Albums, Song} from './db';
 import { rejects } from "assert";
 
 mongoose.set('useFindAndModify', false);
@@ -54,6 +54,21 @@ export const resolvers = {
         }
     },
     Mutation: {
+        addSong: (root, {input}) => {
+            const newSong = new Song({
+                artname: input.artname,
+                source: input.source,
+                songname: input.songname
+            });
+            newSong.id = newSong._id
+
+            return new Promise((resolve, object) => {
+                newSong.save((error) => {
+                    if(error) rejects(error);
+                    else resolve(newSong);
+                });
+            });
+        },
         updateUser: (root, {input}) => {
             return new Promise((resolve, object) => {
                 Users.findOneAndUpdate({_id: input.id}, input, {new: true}, (error, user) => {

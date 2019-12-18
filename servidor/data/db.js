@@ -37,10 +37,8 @@ export const Albums = mongoose.model('Albums', albumsSchema);
 
 
 const songSchema = new mongoose.Schema({
-    filename: String,
-    contentType: String,
-    originalname: String,
-    duracion: Number,
-    source: String
+    songname: String,
+    source: String,
+    artname: String
 });
-export const Song = mongoose.model('fs.files', songSchema);
+export const Song = mongoose.model('songs', songSchema);
