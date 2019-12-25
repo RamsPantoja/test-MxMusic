@@ -1,71 +1,51 @@
 import React, {Fragment} from 'react';
-import { Query } from 'react-apollo';
-import { songs_query } from '../../querys/querys';
-import { song_query } from '../../querys/querys';
+import { useQuery } from '@apollo/react-hooks';
+import { SONGS_QUERY } from '../../querys/querys';
 import './player.css';
 import ComponentAudio from './audiocomponent';
 
-class Discografia extends React.Component {
-    render () {
-        return (
-            <div className='discograf'>
-                <Query query={songs_query}>
-                    {({loading, error, data}) => {
-                        if(loading) return 'Loading...';
-                        if(error) return `Error: ${error.message}`;
-                        return (
-                            <div className='discograf-content'>
-                                <img src={data.getSongs[0].img} alt="cover" height="60" width="60"/>
-                                <ul>
-                                    <li className='link-2'><p>{data.getSongs[0].titulo}</p></li>
-                                    <li className='link-2'><a href='google.com' className='artist-link'>{data.getSongs[0].artname}</a></li>
-                                </ul>
-                            </div>
-                        );
-                    }
-
-                    }
-                </Query>
+function Discografia () {
+    const {loading, error, data} = useQuery(SONGS_QUERY);
+    if ( loading ) return 'loading...';
+    if ( error ) return `Error! ${error.message}`;
+    console.log(data.getSongs[1].album.img)
+    return (
+        <div className='discograf'>
+            <div className='discograf-content'>
+                <img src={data.getSongs[1].album.img} alt="cover" height="60" width="60"/>
+                <ul>
+                    <li className='link-2'><p>{data.getSongs[1].songname}</p></li>
+                    <li className='link-2'><a href='google.com' className='artist-link'>{data.getSongs[1].artist.artname}</a></li>
+                </ul>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 
-class VolumeControl extends React.Component {
-    render() {
-        return(
+function VolumeControl () {
+    return(
+        <Fragment>
+            <div className='volume'>
+                <h4>hola</h4>
+            </div>  
+        </Fragment>
+    );
+}
+
+function PlayerContainer (props) {
+    let trackSource = props.trackSource;
+    return(
+        <div className='player'>
             <Fragment>
-                <div className='volume'>
-                    <h4>hola</h4>
-                </div>  
+                <Discografia/>
+                <ComponentAudio
+                    trackSource={trackSource}/>
+                <VolumeControl/>
             </Fragment>
-        );
-    }
+        </div>
+    );
 }
 
-class PlayerContainer extends React.Component {
-    render() {
-        return(
-            <div className='player'>
-                <Query query={song_query}>
-                    {({loading, error, data}) => {
-                        if (loading) return '';
-                        if (error) return `Error: ${error.message}`;
-                        console.log(data.getSong);
-                        return (
-                            <Fragment>
-                                <Discografia/>
-                                <ComponentAudio 
-                                    source={data.getSong.source}/>
-                                <VolumeControl/>
-                            </Fragment>
-                        )
-                    }}
-                </Query>
-            </div>
-        );
-    }
-}
 
 export default PlayerContainer;

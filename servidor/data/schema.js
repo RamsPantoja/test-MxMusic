@@ -29,15 +29,14 @@ type Album {
     id: ID
     name: String
     img: String
-    songs: [Song]
 }
 
 type Song {
     id: ID
     songname: String
     source: String
-    artname: String
-    album: String
+    artist: Artist
+    album: Album
 }
 
 type Query {

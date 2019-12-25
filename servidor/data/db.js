@@ -2,8 +2,10 @@ import mongoose from 'mongoose';
 
 mongoose.Promise = global.Promise;
 
-const MongoURI = 'mongodb://localhost:27017/spotifydb';
-mongoose.connect(MongoURI);
+const MongoURI = 'mongodb+srv://RamsPantoja:Left4Dead2@devclosterrams-nodjj.mongodb.net/musicdb?retryWrites=true&w=majority';
+mongoose.connect(MongoURI, {useUnifiedTopology: true, useNewUrlParser:true});
+
+
 
 
 // Estructuracion del esquema de la base de datos
@@ -30,8 +32,7 @@ export const Users = mongoose.model('Users', usersSchema);
 
 const albumsSchema = new mongoose.Schema({
     name: String,
-    img: String,
-    songs: Array
+    img: String
 });
 export const Albums = mongoose.model('Albums', albumsSchema);
 
@@ -39,7 +40,7 @@ export const Albums = mongoose.model('Albums', albumsSchema);
 const songSchema = new mongoose.Schema({
     songname: String,
     source: String,
-    artname: String,
-    album: String
+    artist: Object,
+    album: Object
 });
 export const Song = mongoose.model('songs', songSchema);

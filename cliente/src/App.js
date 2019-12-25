@@ -1,8 +1,7 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
-
+import { ApolloProvider } from '@apollo/react-hooks';
 
 //componentes del div contenedor
 import Canciones from './components/content1/canciones';
@@ -30,15 +29,25 @@ const client = new ApolloClient({
 })
 
 function App() {
+  const [trackSource, setTrackSource] = useState('');
+
+ function onTrackSourceSelected (source, e) {
+   e.preventDefault();
+   console.log("track's Source: " + source);
+   setTrackSource(source);
+  }
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <Fragment>
           <Drawer/>
-          <PlayerContainer/>
+          <PlayerContainer trackSource={trackSource}/>
           <div className='content'>
             <Switch>
-              <Route exact path='/songs' component={ Canciones }/>
+              <Route exact path='/songs'>
+                <Canciones onClick={onTrackSourceSelected} />
+              </Route>
               <Route exact path='/artist' component={ Artistas }/>
               <Route exact path='/albums' component={ Albums }/>
               <Route exact path='/radio' component={ Radio }/>

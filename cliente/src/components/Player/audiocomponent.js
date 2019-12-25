@@ -27,15 +27,21 @@ class ComponentAudio extends React.Component {
         let currentTime = this.reactAudioPlayer.current.currentTime;
         let percent = (currentTime / currentDuration);
         let audioControls = Object.assign({}, this.state.audioControls);
-        audioControls.songPercent = percent;
-        audioControls.songTime = Math.floor(currentTime.toFixed(0) / 60) + ':' + (currentTime.toFixed(0) % 60 ? this.minTwoDigits((currentTime.toFixed(0) % 60)) : '00')
-        audioControls.songDuration = Math.floor(currentDuration.toFixed(0) / 60) + ':' + (currentDuration.toFixed(0) % 60 ? this.minTwoDigits(currentDuration.toFixed(0) % 60) : '00');
+        if (isNaN(percent)) {
+            audioControls.songPercent = 0;
+        } else {
+            audioControls.songPercent = percent;
+            audioControls.songTime = Math.floor(currentTime.toFixed(0) / 60) + ':' + (currentTime.toFixed(0) % 60 ? this.minTwoDigits((currentTime.toFixed(0) % 60)) : '00')
+            audioControls.songDuration = Math.floor(currentDuration.toFixed(0) / 60) + ':' + (currentDuration.toFixed(0) % 60 ? this.minTwoDigits(currentDuration.toFixed(0) % 60) : '00');
+        }
+        
         this.setState({ 
             audioControls
         });
         
     }
 
+    
     updateAudioTime (e) {
         e.persist();
         if(this.state.playStatus !== undefined ) {
@@ -84,7 +90,7 @@ class ComponentAudio extends React.Component {
             <Fragment>
                 <audio id='audio' 
                 ref={this.reactAudioPlayer} 
-                src={this.props.source} 
+                src={this.props.trackSource} 
                 onTimeUpdate={this.onTimeUpdateListener}
                 onEnded={this.endPlayed}></audio>
                 <PlayerControls 

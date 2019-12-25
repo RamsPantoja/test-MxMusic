@@ -2,21 +2,28 @@ import gql from 'graphql-tag';
 
 //Query para el discograf
 
-export const songs_query = gql ` query {
+export const SONGS_QUERY = gql `{
     getSongs {
         id
         songname
-        artname
-        album
+        source
+        artist {
+            artname
+            biografia
+        }
+        album {
+            name
+            img
+        }
     }
 }`
 
-export const song_query = gql ` query {
-    getSong(id:"5df9a62f11a415166094b88f"){
-        id
-        songname
-        source
-        artname
-        album
+export const SONG_QUERY = gql `
+    query Song($track: ID!){
+        getSong(id: $track){
+            source
+            id
+            songname
+        }
     }
-}`
+`;
