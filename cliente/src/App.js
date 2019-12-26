@@ -46,7 +46,7 @@ function App() {
           <div className='content'>
             <Switch>
               <Route exact path='/songs'>
-                <Canciones onClick={onTrackSourceSelected} />
+                <Canciones onDoubleClick={onTrackSourceSelected} />
               </Route>
               <Route exact path='/artist' component={ Artistas }/>
               <Route exact path='/albums' component={ Albums }/>

@@ -17,6 +17,7 @@ class ComponentAudio extends React.Component {
         this.onTimeUpdateListener = this.onTimeUpdateListener.bind(this);
         this.updateAudioTime = this.updateAudioTime.bind(this);
         this.endPlayed = this.endPlayed.bind(this);
+        this.canPlay = this.canPlay.bind(this);
     }
 
     minTwoDigits (num) {
@@ -84,6 +85,20 @@ class ComponentAudio extends React.Component {
             playStatus: status
         })
     }
+    canPlay () {
+        let status = this.state.playStatus;
+        if (status === false) {
+            status = true
+            this.reactAudioPlayer.current.play();
+        } else if (status === true) {
+            this.reactAudioPlayer.current.pause();
+            this.reactAudioPlayer.current.play();
+            status = true
+        }
+        this.setState({
+            playStatus: status
+        })
+    }
 
     render () {
         return (
@@ -92,7 +107,8 @@ class ComponentAudio extends React.Component {
                 ref={this.reactAudioPlayer} 
                 src={this.props.trackSource} 
                 onTimeUpdate={this.onTimeUpdateListener}
-                onEnded={this.endPlayed}></audio>
+                onEnded={this.endPlayed}
+                onCanPlay={this.canPlay}></audio>
                 <PlayerControls 
                 playStatus={this.state.playStatus}
                 percent={this.state.audioControls.songPercent} 
