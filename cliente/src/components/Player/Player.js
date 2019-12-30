@@ -2,13 +2,13 @@ import React, {Fragment} from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { SONGS_QUERY } from '../../querys/querys';
 import './player.css';
-import ComponentAudio from './audiocomponent';
+import PlayerControls from './buttons_player/playercontrols';
 
 function Discografia () {
     const {loading, error, data} = useQuery(SONGS_QUERY);
     if ( loading ) return 'loading...';
     if ( error ) return `Error! ${error.message}`;
-    console.log(data.getSongs[1].album.img)
+    console.log(data.getSongs[1]);
     return (
         <div className='discograf'>
             <div className='discograf-content'>
@@ -33,19 +33,27 @@ function VolumeControl () {
     );
 }
 
-function PlayerContainer (props) {
-    let trackSource = props.trackSource;
-    return(
-        <div className='player'>
-            <Fragment>
-                <Discografia/>
-                <ComponentAudio
-                    trackSource={trackSource}/>
-                <VolumeControl/>
-            </Fragment>
-        </div>
-    );
-}
-
+const PlayerContainer = React.forwardRef((props, ref) => (
+    <div className='player'>
+        <Fragment>
+            <Discografia/>
+            <PlayerControls
+            togglePlay={props.togglePlay}
+            playStatus={props.playStatus}
+            songTime={props.songTime}
+            songDuration={props.songDuration}
+            songPercent={props.songPercent}
+            updateAudioTime={props.updateAudioTime}
+            />
+            <audio className='PlayerContainer'
+            src={props.source}
+            id='audio'
+            ref={ref}
+            onTimeUpdate={props.onTimeUpdateListener}
+            ></audio>
+            <VolumeControl/>
+        </Fragment>
+    </div>
+));
 
 export default PlayerContainer;

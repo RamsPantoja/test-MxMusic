@@ -20,9 +20,6 @@ class ComponentAudio extends React.Component {
         this.canPlay = this.canPlay.bind(this);
     }
 
-    minTwoDigits (num) {
-        return ( num < 10 ? '0' : '') + num;
-    }
     onTimeUpdateListener () {
         let currentDuration = this.reactAudioPlayer.current.duration;
         let currentTime = this.reactAudioPlayer.current.currentTime;
